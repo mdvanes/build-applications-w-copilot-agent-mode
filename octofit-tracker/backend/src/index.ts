@@ -16,7 +16,7 @@ app.get('/health', (_req, res) => res.json({ status: 'ok' }))
 
 // Codespaces-aware API URL (used by frontends running in Codespaces)
 const API_URL = process.env.API_URL || (process.env.CODESPACE_NAME
-  ? `https://${process.env.CODESPACE_NAME}-8000.githubpreview.dev`
+  ? `https://${process.env.CODESPACE_NAME}-8000.app.github.dev`
   : `http://localhost:${PORT}`)
 
 app.get('/api/config', (_req, res) => {
