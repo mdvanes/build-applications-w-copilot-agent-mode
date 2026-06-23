@@ -1,11 +1,17 @@
 import { useEffect, useState } from 'react'
 import { fetchResource } from '../lib/api'
 
+const codespaceName = import.meta.env.VITE_CODESPACE_NAME
+const leaderboardEndpoint = codespaceName
+  ? `https://${codespaceName}-8000.app.github.dev/api/leaderboard`
+  : 'http://localhost:8000/api/leaderboard'
+
 export default function Leaderboard() {
   const [entries, setEntries] = useState([])
   const [error, setError] = useState('')
 
   useEffect(() => {
+    console.debug('Leaderboard endpoint:', leaderboardEndpoint)
     fetchResource('leaderboard', 'leaderboard')
       .then(setEntries)
       .catch(err => setError(err.message))

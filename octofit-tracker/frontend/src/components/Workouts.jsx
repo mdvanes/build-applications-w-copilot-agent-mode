@@ -1,11 +1,17 @@
 import { useEffect, useState } from 'react'
 import { fetchResource } from '../lib/api'
 
+const codespaceName = import.meta.env.VITE_CODESPACE_NAME
+const workoutsEndpoint = codespaceName
+  ? `https://${codespaceName}-8000.app.github.dev/api/workouts`
+  : 'http://localhost:8000/api/workouts'
+
 export default function Workouts() {
   const [workouts, setWorkouts] = useState([])
   const [error, setError] = useState('')
 
   useEffect(() => {
+    console.debug('Workouts endpoint:', workoutsEndpoint)
     fetchResource('workouts', 'workouts')
       .then(setWorkouts)
       .catch(err => setError(err.message))

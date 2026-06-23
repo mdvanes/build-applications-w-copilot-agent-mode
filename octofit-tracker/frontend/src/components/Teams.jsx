@@ -1,11 +1,17 @@
 import { useEffect, useState } from 'react'
 import { fetchResource } from '../lib/api'
 
+const codespaceName = import.meta.env.VITE_CODESPACE_NAME
+const teamsEndpoint = codespaceName
+  ? `https://${codespaceName}-8000.app.github.dev/api/teams`
+  : 'http://localhost:8000/api/teams'
+
 export default function Teams() {
   const [teams, setTeams] = useState([])
   const [error, setError] = useState('')
 
   useEffect(() => {
+    console.debug('Teams endpoint:', teamsEndpoint)
     fetchResource('teams', 'teams')
       .then(setTeams)
       .catch(err => setError(err.message))
